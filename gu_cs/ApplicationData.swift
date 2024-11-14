@@ -65,6 +65,30 @@ class ApplicationData {
                "This course covers Android/IOS programming. The major topics include: GUIs, layouts, menus, resource files, events, touch/gesture processing, accelerometer and motion event handling, images, video, audio, graphics, animation, maps, geo-location, threading, web services, timers, supporting various screen sizes/resolutions, and more. We will write Apps for Android phones/watches, iPhone, and Apple Watch."
          ),
          CS(
+            csClassName: "Computational Structures", isClass: true,
+            professorName: "Unknown",
+            about:
+               "The course covers digital systems architecture, assuming only the basics of programming and Boolean logic as background. Computing systems continually become more complex. Naively exploiting the abstract interfaces between technical specialties, sticking with the familiar and accepting the rest on faith, we neither grasp systems as wholes nor understand and create the new. Here, we instead demystify how and why programs make real things happen by sampling a wide spectrum of technology in a bottom-up progression from simple electronics to a representative computer system. That system, rather than being real-world, provides a coherent framework for understanding its purpose and mechanisms, uncluttered by historical artifacts and obscure optimizations. We explore a simple NOT switching breadboard circuit, extend its design to basic logic gates, and go on to briefly discuss 2-d CMOS circuit design, fabrication, and market forces. Looking briefly at historical computing machinery from antiquity onwards, we adopt some concepts, including selections from Boolean logic, digitial arithmetic, information encoding, Finite State Machines (FSM), Turing Machines, and universal simulation. Using a few base digital design elements (MUX, DEMUX, and flipflop), we recursively describe higher-level organizational elements, such as, register files, memories, data-functional units, buses, input/output devices and interfaces, and controller FSM’s. Instruction sets, execution phases, data and instruction flow, Harvard and von Neumann architectures, clocks, timing, and interaction protocol ideas are developed in the process of debugging our simplified, 16-bit, single-threaded, pipelined processor which includes split L1 caches, memory-mapped input/output devices, priority interrupts, privileged execution, memory protection, and address translation. We write small programs, both as text versions of pure binaries as well as using a one-pass assembler, and trace their circuit activity during execution. Along the way, we introduce the low-level hardware/software interface and system structure, including program loading, libraries and linking, stacks, saving and restoring execution state, system calls, input/output device polling and interrupts, memory maps, memory address translation, memory protection, privileged execution, and memory/IO bus and cache object names and name decoding and access protocols. We manage our project materials in a unix command-line environment using a version-control system, along with other unix tools, and therefore also briefly discuss processes, shells, forking, shell environment variables, bash and make syntax, and shell scripts and their execution. Workload includes written assignments, a mid-term exam, a comprehensive final exam, and a processor exploration project consisting of a series of FPGA lab exercises."
+         ),
+         CS(
+            csClassName: "Operating Systems", isClass: true,
+            professorName: "Jami Montgomery",
+            about:
+               "This course studies the software systems that provide the interface between the computer system hardware resources and the users of the system. This interface is composed of a large collection of programs that provide simplified and uniform access to information storage (data and programs on tape, disk, and in memory), processing elements (CPUs and remote computers), input/output devices (telecommunications, keyboards, mice, video displays, printers, etc.), and data acquisition and equipment control devices. Topics include, processes and threads of execution, concurrent process synchronization, concurrent access to hardware resources, file systems, memory management and virtual memory, job scheduling, system modeling and performance evaluation, network communication and protocols, and computer and network security. A variety of example operating systems of different types will be examined and their characteristics compared."
+         ),
+         CS(
+            csClassName: "Introduction to Algorithms", isClass: true,
+            professorName: "Jeremy Fineman",
+            about:
+               "This course explores various techniques used in the design and analysis of computer algorithms. Starting with the divide-and-conquer technique, the course covers various general approaches such as the greedy method and dynamic programming. Depending on time, various examples from the following problem domains will be considered: graph theory, shortest path, max-flow, matching, FFT, data compression, cryptography, and computational geometry. The notions of NP-completeness and computability will be introduced. If time permits, students will be introduced to online and parallel algorithms."
+         ),
+         CS(
+            csClassName: "Deep Learning", isClass: true,
+            professorName: "Sarah Bargal",
+            about:
+               "This course will focus on building state-of-the-art systems in the intersection of deep learning and computer vision. Student will be introduced to deep architectures and learning algorithms for various discriminative and generative computer vision tasks. The course will demonstrate how such tasks are main building blocks in processing images and videos for applications such as self-driving cars, healthcare, surveillance, and human-computer interfaces."
+         ),
+         CS(
             isClass: false,
             professorName: "Mahendran Velauthapillai",
             about:
@@ -77,6 +101,20 @@ class ApplicationData {
             about:
                "Graduate Program Manager",
             imageName: "ray"
+         ),
+         CS(
+            isClass: false,
+            professorName: "Sarah Bargal",
+            about:
+               "Expert in Machine Learning/Deep Learning",
+            imageName: "sarah"
+         ),
+         CS(
+            isClass: false,
+            professorName: "Jeremy Fineman",
+            about:
+               "Wagner Term Chair in Computer Science",
+            imageName: "jeremy"
          ),
          CS(
             isClass: false,
