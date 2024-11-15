@@ -1,44 +1,40 @@
 import CoreData
 import SwiftUI
 
-// View for displaying a list of professors
 struct ProfessorsView: View {
-    @Environment(\.managedObjectContext) private var viewContext // Environment property for Core Data context
-    var csList: [CS] // Array of data objects representing professors and classes
+    @Environment(\.managedObjectContext) private var viewContext
+    var csList: [CS]
+
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Item.professorName, ascending: true)],
+        animation: .default)
+    private var favoritedItems: FetchedResults<Item>
 
     var body: some View {
-        // Main navigation stack for the view
         NavigationStack {
             ZStack {
-                // Set background color for the entire view
                 Color("PrimaryDarkPurple").ignoresSafeArea()
 
-                // List displaying each professor from csList
                 List {
-                    // Filter the list to include only professors, excluding classes
                     ForEach(csList.filter { !$0.isClass }) { cs in
                         ZStack(alignment: .trailing) {
-                            // Background rectangle with shadow for each list item
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(Color.white)
                                 .shadow(color: Color("PrimaryDarkPurple").opacity(0.15), radius: 4, x: 0, y: 2)
                                 .frame(maxWidth: .infinity)
                             
-                            // Horizontal stack for the content within each professor item
                             HStack {
-                                // Person icon to represent a professor
                                 Image(systemName: "person.fill")
-                                    .foregroundColor(Color("PrimaryDarkPurple"))
+                                    .foregroundColor(isAlreadyFavorited(cs: cs) ? .yellow : Color("PrimaryDarkPurple"))
                                     .font(.system(size: 24))
+                                    .animation(.easeInOut(duration: 0.3), value: isAlreadyFavorited(cs: cs))
 
-                                // Display professor name with headline font
                                 Text(cs.professorName ?? "Unknown Professor")
                                     .font(.headline)
                                     .foregroundColor(Color("PrimaryDarkPurple"))
 
                                 Spacer()
 
-                                // Chevron icon to indicate navigation
                                 Image(systemName: "chevron.right")
                                     .foregroundColor(Color("PrimaryDarkPurple"))
                                     .font(.system(size: 18))
@@ -48,7 +44,6 @@ struct ProfessorsView: View {
                             .padding(.horizontal, 16)
                             .frame(maxWidth: .infinity)
                             .background(
-                                // Background rectangle with shadow for content
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(Color.white)
                                     .shadow(color: Color("PrimaryDarkPurple").opacity(0.15), radius: 4, x: 0, y: 2)
@@ -56,26 +51,48 @@ struct ProfessorsView: View {
                         }
                         .padding(.horizontal, 4)
                         .background(
-                            // Navigation link to ProfessorView for detailed view of professor
                             NavigationLink("", destination: ProfessorView(
                                 professorName: cs.professorName ?? "Unknown Professor",
                                 about: cs.about,
                                 image: cs.image
                             ))
-                            .opacity(0) // Make the navigation link transparent to keep custom layout
+                            .opacity(0)
                         )
-                        .listRowBackground(Color.clear) // Set row background to transparent
+                        .listRowBackground(Color.clear)
                         .padding(.vertical, 6)
+                        .gesture(
+                            LongPressGesture(minimumDuration: 2)
+                                .onEnded { _ in
+                                    if !isAlreadyFavorited(cs: cs) {
+                                        saveToFavorites(cs: cs)
+                                    }
+                                }
+                        )
                     }
                 }
-                .scrollContentBackground(.hidden) // Hide the default list background
-                .background(Color("PrimaryDarkPurple")) // Set custom background color for the list
+                .scrollContentBackground(.hidden)
+                .background(Color("PrimaryDarkPurple"))
             }
-            .listStyle(InsetGroupedListStyle()) // Apply list style for grouped appearance
+            .listStyle(InsetGroupedListStyle())
         }
     }
-}
 
-#Preview {
-    ProfessorsView(csList: ApplicationData().userData)
+    private func saveToFavorites(cs: CS) {
+        let newItem = Item(context: viewContext)
+        newItem.professorName = cs.professorName
+        newItem.isClass = false
+        newItem.about = cs.about
+        newItem.imageName = cs.imageName
+
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+
+    private func isAlreadyFavorited(cs: CS) -> Bool {
+        return favoritedItems.contains { !$0.isClass && $0.professorName == cs.professorName }
+    }
 }
