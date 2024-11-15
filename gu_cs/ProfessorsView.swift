@@ -77,7 +77,7 @@ struct ProfessorsView: View {
                         .padding(.vertical, 6)
                         .gesture(
                             // Long press gesture to add the professor to favorites if not already favorited
-                            LongPressGesture(minimumDuration: 2)
+                            LongPressGesture(minimumDuration: 1)
                                 .onEnded { _ in
                                     if !isAlreadyFavorited(cs: cs) {
                                         saveToFavorites(cs: cs)
